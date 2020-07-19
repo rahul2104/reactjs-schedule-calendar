@@ -9,7 +9,8 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^1.1.4",
+    "reactjs-schedule-calendar": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
