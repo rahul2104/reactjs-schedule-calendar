@@ -1,0 +1,51 @@
+.daily-schedule {
+    border-spacing: 0;
+}
+
+.daily-schedule tr {
+}
+
+.daily-schedule td {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid black;
+}
+
+.daily-schedule tr td:first-child, .daily-schedule th td:first-child {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.daily-schedule tr td:last-child, .daily-schedule th td:last-child {
+    border-right: 1px solid black;
+}
+
+.daily-schedule tbody > tr:last-child td,
+.daily-schedule thead th:last-child > td {
+    border-bottom: 1px solid black;
+}
+
+.daily-schedule td.daily-schedule__event {
+    padding: 0;
+    background: #3355aa;
+    color: #fff;
+}
+
+.daily-schedule td.daily-schedule__event > * {
+    padding: 1rem 1.5rem;
+}
+
+.daily-schedule td.daily-schedule-bucket-container {
+    padding: 0;
+}
+
+.daily-schedule td.daily-schedule-bucket-container .daily-schedule-bucket {
+    padding: calc(1.5rem + 1px) 1.5rem;
+}
+
+.daily-schedule td.daily-schedule-bucket-container .daily-schedule-bucket.daily-schedule-bucket__over {
+    background: green;
+}
+
+.daily-schedule td.daily-schedule-bucket-container .daily-schedule-bucket.daily-schedule-bucket__can-drop {
+    background: yellow;
+}
