@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import { startOfDay, format } from 'date-fns'
 import './style.css'
 import {DndProvider} from 'react-dnd'
@@ -36,7 +36,7 @@ function DailySchedule({
   )
   return (
     <DndProvider backend={Backend}>
-      <table className='daily-schedule'>
+      <table className='daily-schedule' id={passedData.hairdresserId?passedData.hairdresserId:''}>
         <thead>
           {THeadComponent}
         </thead>

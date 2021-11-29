@@ -36,6 +36,10 @@ function canDrop(appointments, interval, slices) {
   }
 }
 
+function filterAppoinment (min, max){
+  return function (a) { return a >= min && a <= max; };
+}
+
 export function displayAppointment({
   timeSlice,
   appointments,
@@ -54,6 +58,27 @@ export function displayAppointment({
   }
   const starting = find(appointments, app => app.start === timeSlice.start)
   const ending = find(appointments, app => app.end === timeSlice.end)
+  // need to serve data with appointments how many appointment...
+ 
+  const appStartTimeArr = appointments.map(timeres=>timeres.start);
+  const appEndTimeArr = appointments.map(timeres=>timeres.end);
+  let maxTime = Math.max(...appEndTimeArr);
+  let minTime = Math.min(...appStartTimeArr);
+  let seArr = appStartTimeArr.concat(appEndTimeArr);
+  let slotAppointments = seArr.filter(filterAppoinment(minTime,maxTime));
+ 
+  const counts = {};
+  slotAppointments.forEach((x) => {
+    counts[x] = (counts[x] || 0) + 1;
+  });
+
+  let newTimeSlots = [];
+  for (const [key, value] of Object.entries(counts)) {
+    newTimeSlots.push(value);
+  }
+
+  let slotSpan = Math.max(...newTimeSlots);
+  slotSpan=(slotSpan!=-Infinity)?slotSpan:'';
 
   if (!starting && ending) {
     /*
@@ -67,7 +92,7 @@ export function displayAppointment({
     *   No appointment found nor starting nor ending in this interval, render an empty cell
     * */
     return (
-      <td className='daily-schedule-bucket-container'>
+      <td colSpan={slotSpan} className='daily-schedule-bucket-container'>
         <Bucket {...timeSlice} canDrop={canDrop(appointments, timeSlice, slices)}>
           {(data) => {
             return <BucketComponent {...data } {...props}/>
@@ -79,7 +104,8 @@ export function displayAppointment({
 
   const startSpanning = Math.round((starting.end - starting.start) / slices)
 
-  if ((starting === ending) || (starting && !ending)) {
+ // console.log('oooooooooo',starting,ending);
+  // if ((starting === ending) || (starting && !ending)) {
     const { component: Component = EventComponent, className, ...otherProps } = starting
     return (
         <td rowSpan={startSpanning} className={`daily-schedule__event ${className}`}>
@@ -88,7 +114,7 @@ export function displayAppointment({
         </Event>
       </td>
     )
-  }
+  //}
 
-  throw Error("Appointments can't overlap")
+  //throw Error("Appointments can't overlap")
 }
